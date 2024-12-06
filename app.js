@@ -15,13 +15,18 @@ const mongoURI = 'mongodb+srv://mpk160109:Mehak%401607@cluster0.io0zg.mongodb.ne
 // const mongoURI = 'mongodb+srv://mehakms06:mypass123@cluster0.jk2hf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 
-// Connect to MongoDB Atlas
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('Connected to MongoDB Atlas'))
-  .catch(err => console.error('MongoDB connection error:', err));
-
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  ssl: true, // Ensure SSL is enabled
+  sslValidate: true, // If needed
+})
+.then(() => {
+  console.log("MongoDB connected successfully");
+})
+.catch(err => {
+  console.error("Error connecting to MongoDB:", err);
+});
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
