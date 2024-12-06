@@ -1,0 +1,112 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 50px;
+}
+
+a {
+    display: inline-block;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    margin-top: 20px;
+    text-align: center;
+}
+
+a:hover {
+    background-color: #45a049;
+}
+
+/* Form styling */
+form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+form label {
+    font-size: 16px;
+    color: #555;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form button {
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Input and textarea focus styles */
+form input:focus, form textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Form input padding and structure */
+form input[type="text"],
+form input[type="email"],
+form input[type="date"],
+form textarea {
+    box-sizing: border-box;
+}
+
+form textarea {
+    resize: vertical;
+}
+
+/* Styling for a back link */
+a {
+    display: inline-block;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    margin-top: 20px;
+    text-align: center;
+}
+
+a:hover {
+    background-color: #45a049;
+}
+
+/* Additional responsiveness for small screens */
+@media (max-width: 600px) {
+    form {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
