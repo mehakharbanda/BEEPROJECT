@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="/cart.css">
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <!-- <th>Quantity</th> -->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% cart.forEach(item => { %>
+                <tr>
+                    <td><%= item.title %></td>
+                    <!-- <td>
+                        <button class="quantity-btn" onclick="updateQuantity('<%= item._id %>', -1)">-</button>
+                        <span id="quantity-<%= item._id %>"><%= item.quantity %></span>
+                        <button class="quantity-btn" onclick="updateQuantity('<%= item._id %>', 1)">+</button>
+                    </td> -->
+                    <td>
+                        <form action="/remove-item/<%= item._id %>" method="POST">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+        
+        
+        
+        
+    </table>
+
+    <!-- <h3>Total Price: <%= totalPrice %></h3> -->
+
+    <form action="/cart/clear" method="POST">
+        <button type="submit">Clear Cart</button>
+    </form>
+    <h3>Student Details Form</h3>
+    <form action="/cart/student/details" method="POST">
+        <input type="text" name="fullName" placeholder="Full Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="phone" placeholder="Phone" />
+        <input type="text" name="address" placeholder="Address" />
+        <input type="text" name="bookTitle" id="bookTitleInput" placeholder="Book Title" readonly />
+        <input type="date" name="issuedDate" placeholder="Issued Date" />
+        <input type="date" name="returnDate" placeholder="Return Date" />
+        <button type="submit">Submit Details</button>
+    </form>
+    
+
+    <a href="/books" class="back-to-books">Back to Books</a>
+    
+    <script>
+        // // Function to update the quantity of a book
+        // function updateQuantity(bookId, delta) {
+        //     fetch(`/cart/updateQuantity/${bookId}?delta=${delta}`, {
+        //         method: 'POST',
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.success) {
+        //             // Update the quantity in the DOM
+        //             const quantitySpan = document.getElementById(`quantity-${bookId}`);
+        //             const newQuantity = data.newQuantity;
+        //             if (newQuantity > 0) {
+        //                 quantitySpan.textContent = newQuantity;
+        //             }
+        //             // Optionally update total price on the page if needed
+        //             document.querySelector('h3').textContent = `Total Price: ${data.totalPrice}`;
+        //         } else {
+        //             alert('Unable to update quantity.');
+        //         }
+        //     });
+        // }
+        let cart = [];  // Array to store added books and their quantities
+
+// Function to add books to cart
+function addToCart(bookName) {
+    const existingBookIndex = cart.findIndex(book => book.name === bookName);
+
+    if (existingBookIndex > -1) {
+        // If the book already exists, increase the quantity
+        cart[existingBookIndex].quantity += 1;
+    } else {
+        // Add new book to the cart with quantity 1
+        cart.push({ name: bookName, quantity: 1 });
+    }
+
+    updateCartDisplay();
+    updateStudentForm();  // Prefill the student form with cart info
+}
+    function updateBookTitle() {
+            const bookTitles = <%- JSON.stringify(cart.map(item => item.title)) %>;
+            const bookTitleInput = document.getElementById('bookTitleInput');
+            bookTitleInput.value = bookTitles.join(', ');
+        }
+                // Update the "Book Title" input when a book is removed
+                function updateBookTitleOnRemove(bookId) {
+            const bookTitle = document.querySelector(`#book-${bookId} td:first-child`).textContent;
+            const bookTitleInput = document.getElementById('bookTitleInput');
+            const currentTitles = bookTitleInput.value.split(', ');
+            const updatedTitles = currentTitles.filter(title => title !== bookTitle);
+            bookTitleInput.value = updatedTitles.join(', ');
+        }
+
+        // Call this function to update book titles when the page loads
+        window.onload = updateBookTitle;
+
+// Function to update the cart display
+function updateCartDisplay() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = ''; // Clear previous cart display
+
+    cart.forEach(book => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `${book.name} - Quantity: <span id="qty-${book.name}">${book.quantity}</span> 
+        <button onclick="changeQuantity('${book.name}', 'increase')">+</button>
+        <button onclick="changeQuantity('${book.name}', 'decrease')">-</button>
+        <button onclick="removeFromCart('${book.name}')">Remove</button>`;
+        cartItemsContainer.appendChild(listItem);
+    });
+}
+
+// Function to increase or decrease quantity
+function changeQuantity(bookName, action) {
+    const bookIndex = cart.findIndex(book => book.name === bookName);
+    if (bookIndex === -1) return;
+
+    if (action === 'increase') {
+        cart[bookIndex].quantity += 1;
+    } else if (action === 'decrease' && cart[bookIndex].quantity > 1) {
+        cart[bookIndex].quantity -= 1;
+    }
+
+    updateCartDisplay();
+    updateStudentForm();  // Update the form after quantity change
+}
+
+// Function to remove book from cart
+function removeFromCart(bookName) {
+    const bookIndex = cart.findIndex(book => book.name === bookName);
+    if (bookIndex !== -1) {
+        cart.splice(bookIndex, 1);
+    }
+
+    updateCartDisplay();
+    updateStudentForm();  // Update the form after removal
+}
+
+// Function to prefill the student details form with cart data
+// Function to update the cart display
+function updateCartDisplay() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = ''; // Clear the previous cart items
+
+    cart.forEach(book => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `${book.name} - Quantity: <span id="qty-${book.name}">${book.quantity}</span> 
+        <button onclick="changeQuantity('${book.name}', 'increase')">+</button>
+        <button onclick="changeQuantity('${book.name}', 'decrease')">-</button>
+        <button onclick="removeFromCart('${book.name}')">Remove</button>`;
+        cartItemsContainer.appendChild(listItem);
+    });
+}
+function updateStudentForm() {
+    const bookSelect = document.getElementById('book-name');
+    const bookQuantityInput = document.getElementById('book-quantity');
+
+    // Clear previous selections
+    bookSelect.innerHTML = '';
+    bookQuantityInput.value = ''; // Reset quantity
+
+    // Fill the select dropdown with books in the cart
+    cart.forEach(book => {
+        const option = document.createElement('option');
+        option.value = book.name;
+        option.innerText = book.name;
+        bookSelect.appendChild(option);
+    });
+
+    // If there's at least one book, prefill the quantity
+    if (cart.length > 0) {
+        bookSelect.value = cart[0].name;  // Select the first book in the cart
+        bookQuantityInput.value = cart[0].quantity;  // Prefill quantity
+    }
+}
+// Function to update book quantity
+async function updateQuantity(bookId, delta) {
+        try {
+            // Make a PUT request to update quantity in the backend
+            const response = await fetch(`/cart/updateQuantity/${bookId}?delta=${delta}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update quantity');
+            }
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Update the quantity on the frontend
+                const quantitySpan = document.getElementById(`quantity-${bookId}`);
+                quantitySpan.textContent = data.newQuantity;
+
+                // Update the total price if necessary
+                document.querySelector('h3').textContent = `Total Price: ${data.totalPrice}`;
+            } else {
+                alert('Unable to update quantity.');
+            }
+        } catch (error) {
+            console.error('Error updating quantity:', error);
+        }
+    }
+    </script>
+</body>
+</html>

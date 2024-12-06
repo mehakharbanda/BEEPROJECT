@@ -1,0 +1,40 @@
+[
+    {
+        "name": "Ram",
+        "email": "ram.1@gmail.com",
+        "profilePicture": "prof1.png",
+        "genreInterests": [
+            "Non-fiction",
+            "Biography",
+            "Fiction"
+        ]
+    },
+    {
+        "name": "Mehak",
+        "email": "mehak.s@gmail.com",
+        "profilePicture": "1732594226853.png",
+        "genreInterests": [
+            "Non-fiction",
+            "Mystery",
+            "Fictiondfg"
+        ]
+    },
+    {
+        "name": "Rishi",
+        "email": "rishi123@gmail.com",
+        "profilePicture": "default1.png",
+        "genreInterests": [
+            "Mystery",
+            "Thriller"
+        ]
+    },
+    {
+        "name": "Mannat",
+        "email": "mannat@gmail.com",
+        "profilePicture": "prof3.png",
+        "genreInterests": [
+            "Drama",
+            "Horror"
+        ]
+    }
+]

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" href="/books.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Library Management</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/genres">Genres</a></li>
+                <li><a href="/borrowals">Borrowals</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Books</h1>
+            </header>
+
+            <!-- Search Books Section -->
+            <div id="searchSection">
+                <h3>Search Books</h3>
+                <input type="text" id="searchQuery" placeholder="Search by title, author, or genre">
+                <button onclick="searchBooks()">Search</button>
+                <p id="searchResultsMessage"></p> 
+            </div>
+            <div class="book-list-container">
+                <% books.forEach(book => { %>
+                    <div class="book-card" id="book-<%= book.id %>">
+                        <img src="<%= book.imageUrl || '/default-book-image.jpg' %>" alt="Book Image">
+                        <div class="book-details">
+                            <h4><%= book.title %></h4>
+                            <p>Author: <%= book.author %></p>
+                            <p>Genre: <%= book.genre %></p>
+                            <!-- <p>Price: ₹<%= book.price || 'N/A' %></p> -->
+                            <form action="/add-to-cart" method="POST">
+                                <input type="hidden" name="bookId" value="<%= book.id %>">
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        </div>
+                        <div class="book-actions">
+                            <button onclick="removeBook('<%= book.id %>')">Remove</button>
+                            <!-- <button onclick="openUpdateForm('<%= book.id %>')">Update</button> -->
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+
+            <!-- Add Book Section -->
+           <!-- Add Book Section -->
+<div id="addBookSection">
+    <h3>Add New Book</h3>
+    <form id="addBookForm" method="POST" action="/books">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required>
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="true">Available</option>
+            <option value="false">Not Available</option>
+        </select>
+        <label for="imageUrl">Image URL:</label>
+        <input type="url" id="imageUrl" name="imageUrl">
+        <button type="submit">Add Book</button>
+    </form>
+</div>
+
+
+
+            <!-- Reserve Book Section -->
+           <!-- Reserve Book Section -->
+<section>
+    <h3>Reserve Book</h3>
+    <form method="POST" action="/reserve">
+        <input type="text" name="bookId" placeholder="Book ID (e.g., 674dc83c8908b8c321a98fbf)" required>
+        <input type="text" name="userName" placeholder="Your Name" required>
+        <button type="submit">Reserve</button>
+    </form>
+</section>
+
+
+            <!-- Update Book Section -->
+            <div id="updateBookSection" style="display:none;">
+                <h3>Update Book</h3>
+                <form id="updateBookForm" method="POST">
+                    <input type="hidden" id="bookId" name="bookId">
+                    <label for="updateTitle">Title:</label>
+                    <input type="text" id="updateTitle" name="title" required>
+                    <label for="updateAuthor">Author:</label>
+                    <input type="text" id="updateAuthor" name="author" required>
+                    <label for="updateGenre">Genre:</label>
+                    <input type="text" id="updateGenre" name="genre" required>
+                    <label for="updateStatus">Status:</label>
+                    <select id="updateStatus" name="status">
+                        <option value="true">Available</option>
+                        <option value="false">Not Available</option>
+                    </select>
+                    <button type="submit">Update Book</button>
+                </form>
+                <button onclick="closeUpdateForm()">Cancel</button>
+            </div>
+            
+        </main>
+    </div>
+
+    <script>
+//         // Function to open the update form
+//     function openUpdateForm(bookId) {
+//     const bookCard = document.getElementById(`book-${bookId}`);
+//     if (!bookCard) {
+//         alert('Book not found!');
+//         return;
+//     }
+
+//     const title = bookCard.querySelector('.book-details h4').innerText;
+//     const author = bookCard.querySelector('.book-details p:nth-child(2)').innerText.replace('Author: ', '');
+//     const genre = bookCard.querySelector('.book-details p:nth-child(3)').innerText.replace('Genre: ', '');
+//     const availability = bookCard.querySelector('.book-details p:nth-child(4)').innerText.includes('Available') ? 'true' : 'false';
+
+//     document.getElementById('bookId').value = bookId;
+//     document.getElementById('updateTitle').value = title;
+//     document.getElementById('updateAuthor').value = author;
+//     document.getElementById('updateGenre').value = genre;
+//     document.getElementById('updateStatus').value = availability;
+
+//     document.getElementById('updateBookSection').style.display = 'block';
+// }
+
+
+
+        // Function to close the update form
+        function closeUpdateForm() {
+            document.getElementById('updateBookSection').style.display = 'none';
+        }
+        document.getElementById('addBookForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent form from submitting the default way
+
+    const formData = new FormData(this);
+    const newBook = {};
+    formData.forEach((value, key) => {
+        newBook[key] = value;
+    });
+
+    try {
+        const response = await fetch('/books', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded', // Send as form data
+            },
+            body: new URLSearchParams(newBook),  // Convert object into URL-encoded form
+        });
+
+        if (response.ok) {
+            window.location.href = '/books';  // Redirect to the book list page
+        } else {
+            alert('Failed to add book');
+        }
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Failed to add book');
+    }
+});
+
+
+// Function to add the book to the table
+function addBookToTable(book) {
+    const bookListContainer = document.querySelector('.book-list-container');
+    const bookCard = document.createElement('div');
+    bookCard.classList.add('book-card');
+    bookCard.id = `book-${book.id}`;
+    bookCard.innerHTML = `
+        <img src="${book.imageUrl || '/default-book-image.jpg'}" alt="Book Image">
+        <div class="book-details">
+            <h4>${book.title || 'No Title'}</h4>
+            <p>Author: ${book.author || 'Unknown Author'}</p>
+            <p>Genre: ${book.genre || 'Unknown Genre'}</p>
+            <p>Availability: ${book.status === 'true' ? 'Available' : 'Not Available'}</p>
+        </div>
+        <div class="book-actions">
+            <button onclick="removeBook('${books.id}')">Remove</button>
+           <button onclick="openUpdateForm('<%= books.id %>')">Update</button>
+
+        </div>
+    `;
+    bookListContainer.appendChild(bookCard); 
+}
+async function removeBook(bookId) {
+    const response = await fetch(`/books/${bookId}`, {
+        method: 'DELETE'
+    });
+
+    if (response.ok) {
+        const bookCard = document.getElementById(`book-${bookId}`);
+        if (bookCard) {
+            bookCard.remove(); 
+        }
+    } else {
+        alert('Failed to remove book');
+    }
+}
+
+async function searchBooks() {
+        const query = document.getElementById('searchQuery').value;
+        const resultsMessage = document.getElementById('searchResultsMessage');
+
+        if (!query) {
+            resultsMessage.textContent = 'Please enter a search query.';
+            return;
+        }
+
+        const response = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
+
+        if (response.ok) {
+            const books = await response.json();
+            if (books.length === 0) {
+                resultsMessage.textContent = 'No books found.';
+            } else {
+                resultsMessage.textContent = `${books.length} book(s) found.`;
+                updateBooksTable(books); 
+            }
+        } else {
+            resultsMessage.textContent = 'Search failed. Please try again.';
+        }
+    }
+// Add this to your script
+document.getElementById('updateBookForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const bookId = document.getElementById('bookId').value;
+    const title = document.getElementById('updateTitle').value;
+    const author = document.getElementById('updateAuthor').value;
+    const genre = document.getElementById('updateGenre').value;
+    const status = document.getElementById('updateStatus').value;
+
+    fetch(`/books/${bookId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, author, genre, status }),
+    })
+        .then((response) => {
+            if (response.ok) {
+                alert('Book updated successfully!');
+                location.reload(); // Reload the page to reflect changes
+            } else {
+                alert('Failed to update book');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred while updating the book.');
+        });
+});
+
+function updateBooksTable(books) {
+        const bookListContainer = document.querySelector('.book-list-container');
+        bookListContainer.innerHTML = '';
+
+        books.forEach(book => {
+            const bookCard = document.createElement('div');
+            bookCard.classList.add('book-card');
+            bookCard.id = `book-${book.id}`;
+            bookCard.innerHTML = `
+                <img src="${book.imageUrl || '/default-book-image.jpg'}" alt="Book Image">
+                <div class="book-details">
+                    <h4>${book.title || 'No Title'}</h4>
+                    <p>Author: ${book.author || 'Unknown Author'}</p>
+                    <p>Genre: ${book.genre || 'Unknown Genre'}</p>
+                    <p>Availability: ${book.status === 'true' ? 'Available' : 'Not Available'}</p>
+                </div>
+                <div class="book-actions">
+                    <button onclick="removeBook('${book.id}')">Remove</button>
+                    <button onclick="openUpdateForm('${book.id}')">Update</button>
+                </div>
+            `;
+            bookListContainer.appendChild(bookCard);
+        });
+    }
+function updateBookInUI(updatedBook) {
+    const bookCard = document.getElementById(`book-${updatedBook.id}`);
+    if (bookCard) {
+        bookCard.querySelector('.book-details h4').innerText = updatedBook.title;
+        bookCard.querySelector('.book-details p:nth-child(2)').innerText = `Author: ${updatedBook.author}`;
+        bookCard.querySelector('.book-details p:nth-child(3)').innerText = `Genre: ${updatedBook.genre}`;
+        bookCard.querySelector('.book-details p:nth-child(4)').innerText = `Availability: ${updatedBook.status ? 'Available' : 'Not Available'}`;
+    }
+}
+async function updateBook(bookId) {
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const genre = document.getElementById('genre').value;
+    const status = document.getElementById('status').checked; // Assuming checkbox
+
+    try {
+        const response = await fetch(`/books/${bookId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, author, genre, status }),
+        });
+
+        if (!response.ok) throw new Error('Failed to update book');
+        alert('Book updated successfully!');
+        location.reload();
+    } catch (err) {
+        console.error(err);
+        alert('Error updating book');
+    }
+}
+function openUpdateForm(bookId) {
+    const updateSection = document.getElementById('updateBookSection');
+    if (!updateSection) {
+        console.error("Update section not found in the DOM");
+        return;
+    }
+
+    const bookCard = document.getElementById(`book-${bookId}`);
+    if (!bookCard) {
+        alert('Book not found!');
+        return;
+    }
+
+    const titleField = document.getElementById('updateTitle');
+    const authorField = document.getElementById('updateAuthor');
+    const genreField = document.getElementById('updateGenre');
+    const statusField = document.getElementById('updateStatus');
+    const bookIdField = document.getElementById('bookId');
+
+    if (!titleField || !authorField || !genreField || !statusField || !bookIdField) {
+        console.error("One or more update form fields are missing.");
+        return;
+    }
+
+    // Set form fields with book details
+    titleField.value = bookCard.querySelector('.book-details h4').innerText;
+    authorField.value = bookCard.querySelector('.book-details p:nth-child(2)').innerText.replace('Author: ', '');
+    genreField.value = bookCard.querySelector('.book-details p:nth-child(3)').innerText.replace('Genre: ', '');
+    statusField.value = bookCard.querySelector('.book-details p:nth-child(4)').innerText.includes('Available') ? 'true' : 'false';
+    bookIdField.value = bookId;
+
+    updateSection.style.display = 'block';
+}
+
+    </script>
+</body>
+
+</html>

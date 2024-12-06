@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management Dashboard</title>
+    <link rel="stylesheet" href="/mannat.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="<%= user.profilePicture || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBWbscMzISxfj6as1OfBxGqfF6QJ8XHf_aEQ&s' %>"
+                    alt="Profile Picture" class="profile-pic">
+                <h2>
+                    <%= user.name %> (Head Librarian)
+                </h2>
+                <p>On Duty</p>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/genres">Genres</a></li>
+                <li><a href="/borrowals">Borrowals</a></li>
+                <li><a href="/memberships">Memberships</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <% if (typeof message !=='undefined' ) { %>
+                <div class="alert success">
+                    <p>
+                        <%= message %>
+                    </p>
+                </div>
+                <% } %>
+
+                    <div class="top-bar">
+                        <div class="profile-menu">
+                            <img src="<%= user.profilePicture || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaoxOJEEce7VNuLoRhzRqlqZzg5V1vdefmSA&s' %>"
+                                alt="Profile Picture" class="profile-pic top-pic" id="profilePic">
+                            <div class="dropdown-menu" id="dropdownMenu">
+                                <a href="/update-profile">Update Profile</a>
+                                <a href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="top-bar-text">
+                        <h1>SMART LIBRARY MANAGER</h1>
+                        <p>The home to your books...</p>
+                    </div>
+
+                    <!-- Dashboard Metrics -->
+                    <div class="dashboard-metrics">
+                        <div class="metric-card">
+                            <h3>Issued Books</h3>
+                            <p>1,500</p>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Manage Users</h3>
+                            <p>300</p>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Manage Books</h3>
+                            <p>10,000</p>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Fine Collected</h3>
+                            <p>$5,000</p>
+                        </div>
+                    </div>
+                    <!-- Add the Announcements Button under Dashboard Metrics -->
+                    <div class="metric-card">
+                        <a href="/announcements">
+                            <h3>Manage Announcements</h3>
+                            <p>Upcoming Events & Policies</p>
+                        </a>
+                    </div>
+                    
+
+                    <!-- Popular Books Section -->
+                    <section class="charts">
+                        <h2>Popular Books</h2>
+                        <div class="chart-container">
+                            <canvas id="bookChart"></canvas>
+                        </div>
+
+                        <!-- Books Container -->
+                        <div class="books-container">
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/files/fb5c5496735ab3a031b1acd88cf7056d.jpg"
+                                    alt="The Partisan">
+                                <h3>The Partisan</h3>
+                            </div>
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/files/d89277ccf0681a0857fd4791ed19db47.jpg"
+                                    alt="Shrines Of Gaiety">
+                                <h3>Shrines Of Gaiety</h3>
+                            </div>
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/files/cad7d49a2ac87f0f43770d78da565d1d.jpg"
+                                    alt="Country Girl">
+                                <h3>Country Girl</h3>
+                            </div>
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/products/17cbff6a0393306ceac006ccfda8213d.jpg"
+                                    alt="King">
+                                <h3>King</h3>
+                            </div>
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/products/12c7e87f3ac66a32aa7fb5c32444749d.jpg"
+                                    alt="Stefan's Diaries">
+                                <h3>Stefan's Diaries</h3>
+                            </div>
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/files/ced3121d87e5269cf374d9168d05bdba.jpg"
+                                    alt="An Arrow To The Moon">
+                                <h3>An Arrow To The Moon</h3>
+                            </div>
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/products/eae30f899c69be1feeea047f9fdf22a5.jpg"
+                                    alt="The Noise">
+                                <h3>The Noise</h3>
+                            </div>
+                            <div class="book-card">
+                                <img src="https://kitabay.com/cdn/shop/products/70d537066af47fc5d4b21b63b24e9f01.jpg"
+                                    alt="Death's End">
+                                <h3>Death's End</h3>
+                            </div>
+                        </div>
+                    </section>
+        </main>
+    </div>
+
+    <script src="/public/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrowals Section</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<style>
+  /* Search Section */
+  h3 {
+    font-size: 25px;
+  }
+
+  .search-section {
+    margin-bottom: 20px;
+  }
+
+  .search-input {
+    padding: 10px;
+    width: calc(100% - 120px);
+    margin-right: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+  }
+
+  p {
+    font-size: 18px;
+    margin-left: 40px;
+    color: red;
+  }
+
+  /* Student Details Section */
+  .student-details-section {
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .input-field {
+    width: calc(100% - 30px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  /* Fine Section */
+  .fine-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .fine-container {
+    width: calc(100% - 30px);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .input-with-symbol {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: calc(100% - 120px);
+  }
+
+  .fine-symbol {
+    position: absolute;
+    left: 10px;
+    color: #2c3e50;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .input-with-symbol .input-field {
+    padding-left: 30px;
+    /* Adjust padding to make room for the rupee symbol */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .calculate-btn {
+    margin-left: 10px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .btn-primary {
+    background-color: #3498db;
+    color: #fff;
+  }
+
+  .btn-primaryy {
+    width: 250px;
+    margin-left: 330px;
+    background-color: #3498db;
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background-color: #2980b9;
+  }
+
+  .btn-primaryy:hover {
+    background-color: #2980b9;
+  }
+
+  .btn-secondary {
+    background-color: #3498db;
+    color: #fff;
+  }
+
+  .btn-secondary:hover {
+    background-color: #2980b9;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Library Management</h2>
+      </div>
+      <ul class="menu">
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/books">Books</a></li>
+        <li><a href="/authors">Authors</a></li>
+        <li><a href="/genres">Genres</a></li>
+        <li><a href="/borrowals" class="active-menu">Borrowals</a></li>
+        <li><a href="/profile">Profile</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header>
+        <h1>Borrowals Section</h1>
+      </header>
+      <p><strong>Fine is applied at a rate of ₹50 per day for overdue books.</strong></p>
+
+      <!-- Search for Student -->
+      <div class="search-section">
+        <h3>Search for Student</h3>
+        <input type="text" id="searchStudent" class="search-input" placeholder="Enter Student Name">
+        <button onclick="searchStudent()" class="btn btn-primary">Search</button>
+      </div>
+
+      <!-- Student Details Section -->
+      <div id="studentDetails" class="student-details-section">
+        <h3>Student Details</h3>
+        <div class="form-group">
+          <label for="studentName">Student Name:</label>
+          <input type="text" id="studentName" class="input-field" disabled>
+        </div>
+        <div class="form-group">
+          <label for="bookTitle">Book Title:</label>
+          <input type="text" id="bookTitle" class="input-field" disabled>
+        </div>
+        <div class="form-group">
+          <label for="issuedDate">Issued Date:</label>
+          <input type="date" id="issuedDate" class="input-field" disabled>
+        </div>
+        <div class="form-group">
+          <label for="returnDate">Return Date:</label>
+          <input type="date" id="returnDate" class="input-field" disabled>
+        </div>
+        <div class="form-group">
+          <label for="returnedOn">Returned On:</label>
+          <input type="date" id="returnedOn" class="input-field">
+        </div>
+        <div class="form-group fine-section">
+          <label for="fine">Fine:</label>
+          <div class="fine-container">
+            <div class="input-with-symbol">
+              <span class="fine-symbol">₹</span>
+              <input type="text" id="fine" class="input-field" disabled>
+            </div>
+            <button onclick="calculateFine()" class="btn btn-secondary calculate-btn">Calculate Fine</button>
+          </div>
+        </div>
+
+        <button onclick="redirectToPayment()" class="btn btn-primaryy">Proceed for Payment</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Function to search for student and fetch details
+    async function searchStudent() {
+      const studentName = document.getElementById('searchStudent').value;
+
+      if (studentName.length < 3) {
+        alert('Please enter at least 3 characters for the search');
+        return;
+      }
+
+      try {
+        const response = await fetch(`/borrowals/searchStudent?fullName=${studentName}`);
+        const studentData = await response.json();
+
+        if (response.ok) {
+          // Fill in student details
+          document.getElementById('studentName').value = studentData.fullName;
+          document.getElementById('bookTitle').value = studentData.bookTitle;
+          document.getElementById('issuedDate').value = studentData.issuedDate.split('T')[0];
+          document.getElementById('returnDate').value = studentData.returnDate.split('T')[0];
+          document.getElementById('returnedOn').value = '';
+          document.getElementById('fine').value = '';
+        } else {
+          alert('Student not found');
+        }
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      }
+    }
+
+    // Function to calculate fine based on return date and returned date
+    function calculateFine() {
+      const returnDate = new Date(document.getElementById('returnDate').value);
+      const returnedOn = new Date(document.getElementById('returnedOn').value);
+
+      if (!returnedOn || !returnDate) {
+        alert('Please fill in both return date and returned date');
+        return;
+      }
+
+      const timeDiff = returnedOn - returnDate;
+
+      if (timeDiff > 0) {
+        const fine = Math.ceil(timeDiff / (1000 * 3600 * 24)) * 50;
+        document.getElementById('fine').value = fine;
+      } else {
+        document.getElementById('fine').value = 0;
+      }
+    }
+
+    // Function to redirect to payment page
+    function redirectToPayment() {
+      const userName = document.getElementById('studentName').value;
+      const fine = document.getElementById('fine').value;
+
+      if (!userName || fine === "") {
+        alert('Please complete all fields before proceeding');
+        return;
+      }
+
+      window.location.href = `/borrowals/payment?userName=${encodeURIComponent(userName)}&fine=${encodeURIComponent(fine)}`;
+    }
+  </script>
+</body>
+
+</html>

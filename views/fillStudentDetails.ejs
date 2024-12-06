@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill Student Details</title>
+</head>
+<body>
+    <h1>Fill Student Details</h1>
+
+    <form action="/cart/issue" method="POST">
+        <label for="studentId">Student ID:</label>
+        <input type="text" name="studentId" required><br>
+
+        <label for="studentName">Student Name:</label>
+        <input type="text" name="studentName" required><br>
+
+        <label for="studentEmail">Student Email:</label>
+        <input type="email" name="studentEmail" required><br>
+
+        <label for="studentPhone">Student Phone:</label>
+        <input type="tel" name="studentPhone" required><br>
+
+        <label for="returnDate">Return Date:</label>
+        <input type="date" name="returnDate" required><br>
+
+        <h3>Books Issued</h3>
+        <ul>
+            <% cart.forEach(item => { %>
+                <li><%= item.title %> - $<%= item.price.toFixed(2) %></li>
+            <% }) %>
+        </ul>
+
+        <h3>Total Price: $<%= totalPrice.toFixed(2) %></h3>
+
+        <button type="submit">Proceed to Pay</button>
+    </form>
+
+    <a href="/cart">Back to Cart</a>
+</body>
+</html>

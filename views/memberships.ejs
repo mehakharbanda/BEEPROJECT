@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Plans</title>
+    <link rel="stylesheet" href="/mannat.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="<%= user.profilePicture || '/images/default-profile.png' %>" alt="Profile Picture" class="profile-pic">
+                <h2><%= user.name %></h2>
+                <p>On Duty</p>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/genres">Genres</a></li>
+                <li><a href="/borrowals">Borrowals</a></li>
+                <li><a href="/memberships" class="active">Memberships</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-contentss">
+            <h1>Membership Plans</h1>
+            <div class="membership-cards">
+                <% memberships.forEach(function(plan) { %>
+                    <div class="membership-card">
+                        <h2><%= plan.name %></h2>
+                        <p>Price: <strong><%= plan.price %></strong></p>
+                        <ul>
+                            <% plan.benefits.forEach(function(benefit) { %>
+                                <li><%= benefit %></li>
+                            <% }); %>
+                        </ul>
+                        <!-- Button to open subscription form -->
+                        <a href="/subscribe?planId=<%= plan.id %>&planName=<%= plan.name %>&planPrice=<%= plan.price %>" class="btn">
+                            Subscribe
+                        </a>
+                    </div>
+                <% }); %>
+            </div>
+        </main>
+        
+    </div>
+</body>
+</html>

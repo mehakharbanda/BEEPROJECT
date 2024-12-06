@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body.login-page {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+    background-image: url('images/final.png');
+    background-size: cover;
+}
+
+
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .login-box {
+            background-color: #1E3A46; /* Semi-transparent black */
+            color: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            border: solid 1px rgb(245, 245, 245);
+        }
+
+        .login-box h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #ccc;
+        }
+
+        .login-field {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .login-field label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .login-field input {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #333;
+            outline: none;
+        }
+
+        .login-field input:focus {
+            border-color: #3f5efb;
+            box-shadow: 0 0 5px rgba(63, 94, 251, 0.5);
+        }
+
+        .login-error-message {
+            color: #fc466b;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .login-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            background-color: #7AA5B2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #1d2b36;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #93bbe5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-wrapper">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form action="/login" method="POST">
+                <div class="login-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="login-field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <% if (error) { %>
+                    <p class="login-error-message"><%= error %></p>
+                <% } %>
+                
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <p class="login-redirect-link">
+                Don't have an account? <a href="/register" class="login-link">Register here</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

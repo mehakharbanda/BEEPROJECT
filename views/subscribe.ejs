@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe to Plan</title>
+    <link rel="stylesheet" href="/mannat.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="<%= user.profilePicture || '/images/default-profile.png' %>" alt="Profile Picture" class="profile-pic">
+                <h2><%= user.name %></h2>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/memberships">Memberships</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-contents">
+            <h1>Subscribe to <%= planName %></h1>
+            <p>Price: <strong><%= planPrice %></strong></p>
+
+            <form action="/subscribe" method="POST" class="subscription-form">
+                <input type="hidden" name="planId" value="<%= planId %>">
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Full Name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+                <label for="paymentMethod">Payment Method:</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="PayPal">PayPal</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                </select>
+
+                <button type="submit" class="btn">Confirm Subscription</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

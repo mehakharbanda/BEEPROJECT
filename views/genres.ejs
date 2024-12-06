@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genres</title>
+    <link rel="stylesheet" href="/profile.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Library Management</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/genres">Genres</a></li>
+                <li><a href="/borrowals">Borrowals</a></li>
+                <li><a href="/memberships" class="active">Memberships</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Genres</h1>
+                <p>Find books by your favorite genres or discover something new!</p>
+                <hr />
+            </header>
+            
+
+            <!-- Filter Form -->
+            <form action="/genres" method="get" class="filter-form">
+                <label for="tag">Filter by Tag:</label>
+                <select name="tag" id="tag">
+                    <option value="">All</option>
+                    <option value="Trending" <% if (tag === 'Trending') { %>selected<% } %>>Trending</option>
+                    <option value="Staff Picks" <% if (tag === 'Staff Picks') { %>selected<% } %>>Staff Picks</option>
+                    <option value="New Additions" <% if (tag === 'New Additions') { %>selected<% } %>>New Additions</option>
+                </select>
+                <button type="submit">Filter</button>
+            </form>
+
+            <!-- Display Filtered Genres in Cards -->
+            <section class="genres-container">
+                <% genres.forEach(genre => { %>
+                    <div class="genre-card">
+                        <h3><a href="/genres/<%= genre.name %>"><%= genre.name %></a></h3>
+                        <p><%= genre.tags.join(', ') %></p>
+                        <ul>
+                            <% genre.books.forEach(book => { %>
+                                <li><%= book.title %> by <%= book.author %></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                <% }); %>
+            </section>
+
+            <% if (genres.length === 0) { %>
+                <p class="no-genres">No genres available.</p>
+            <% } %>
+
+            <!-- Librarian Control: Add Genre Form (Moved Below Cards) -->
+            <h2>Add New Genre</h2>
+            <form action="/genres/add" method="post" class="genre-form">
+                <label for="name">Genre Name:</label>
+                <input type="text" name="name" id="name" required>
+
+                <label for="tags">Tags (comma separated):</label>
+                <input type="text" name="tags" id="tags" required>
+
+                <label for="books">Books (comma separated):</label>
+                <input type="text" name="books" id="books" required>
+
+                <button type="submit">Add Genre</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

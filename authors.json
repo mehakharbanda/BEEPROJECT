@@ -1,0 +1,56 @@
+[
+  {
+    "name": "John Ronald Reuel Tolkien",
+    "bio": "Writer and Philologist",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUz4lpuQEmvCiYLTl9a0DgOSaZITWGQES-tg&s",
+    "birthdate": "1973-01-03",
+    "nationality": "African",
+    "genres": "High fantasy",
+    "description": "Known for: Creating the fictional world of Middle-earth"
+  },
+  {
+    "name": "Leo Tolstoy",
+    "bio": "Philosopher and Novelist",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6idnsdSGt9m1OkxpPHtZ0jICaRJj2YKJ2_g&s",
+    "birthdate": "1828-09-09",
+    "nationality": "Russian",
+    "genres": "Realist fiction",
+    "description": "known for: Writing War and Peace and Anna Karenina"
+  },
+  {
+    "name": "Tasha Tudor",
+    "bio": "Illustrator ",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC-hd7GCWwJYJxG86UqB0A1drchNOK_Xyd4A&s",
+    "birthdate": "1915-08-28",
+    "nationality": "American",
+    "genres": "Children's book and Regional painting",
+    "description": "known for: watercolor depictions of the American rural scene, as well as her paintings of children, flowers, and animals"
+  },
+  {
+    "name": "James Joyce",
+    "bio": "Novelist and Poet",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/James_Joyce_by_Alex_Ehrenzweig%2C_1915_cropped.jpg/640px-James_Joyce_by_Alex_Ehrenzweig%2C_1915_cropped.jpg",
+    "birthdate": "1941-02-02",
+    "nationality": "Spanish",
+    "genres": "Realist fiction, Modernist avant-garde, and Lyric poetry",
+    "description": "known for:  his innovative use of language, including invented words, puns, and allusions."
+  },
+  {
+    "name": "Mehak Kharbanda",
+    "bio": "dfg",
+    "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExMVFhUXFxcYGBcYFxcXGBgXGBoYFxgaGBgdHSggGB0lHRoYITEhJSkrLi4uGB8zODMtNygtLisBCgoKDg0OGhAQGi0lHyUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAQwAvAMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAADAQIEBQYHAP/EADsQAAEDAgQDBQYFBAICAwAAAAEAAhEDIQQSMUEFUWEGInGBkROhscHR8AcyQlLhFCNi8XKSM4IVQ7L/xAAZAQADAQEBAAAAAAAAAAAAAAAAAQIDBAX/xAAiEQEBAAICAwEBAAMBAAAAAAAAAQIRITEDEkEiUTJhcRP/2gAMAwEAAhEDEQA/AN6Xpjii1QgPsuJht7cIjhKYDYSmVHoPZagUZ7U51ZIH3Rowo6JCUSqhuM2TMz2VuaGaTSih8IbgQmHmUAEUUghsJRWulGgfk5JHUYRGyAnByVoRGtMoppogKG95JRsBmEMgapXm6Y4oGzC5K4WQs10j3qk7PcIQHPTjUKZmm6YetuisokiQgVDurDBv7uvuRtUXTyk1TnMQX2UMiPKa8LzwkDkGA9iQORqjUFuqaofqmObBRJTKjZQewQbpzkj2J0zCKYRbHgi0zaUtQBDJ5WCCoj60JzKk6bprgE1wPRIDTG6Fm5ppQnP1QDar7oDjKe87oQdEqiPiyaWXSGt03Q3vM+KIHqroQfaolYWkqImEh5snUKpj+UNwRKMQPomcbFxQ3BIZTlkzCqtQYhHrFR6qcN5zkwtTmomyagQEpFglcOSa9tgkYdRySiZTHOun5kUw8QVFq46m38z2DxcB7lmO1vakscaGHvUJhz4nL0btPVQOF9iHYgF9WoS483SZ6iE+py1w8VybAcWok/8AkbPQypRxAIlpnqDKq",
+    "birthdate": "2004-08-09",
+    "nationality": "African",
+    "genres": "sdfgh",
+    "description": "dsfghbjn"
+  },
+  {
+    "name": "niowfnowifn",
+    "bio": "vlavnioavnoiwa",
+    "image": "https://images.unsplash.com/photo-1527632911563-ee5b6d53465b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmVhdXR5JTIwcHJvZHVjdHN8ZW58MHx8MHx8fDA%3D",
+    "birthdate": "2004-03-17",
+    "nationality": "Indian",
+    "genres": "cnowanf",
+    "description": "ncfjWFN"
+  }
+]

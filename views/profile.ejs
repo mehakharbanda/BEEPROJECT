@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/profile.css">
+</head>
+<body class="profile-page">
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Library Management</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/genres">Genres</a></li>
+                <li><a href="/borrowals">Borrowals</a></li>
+                <li><a href="/memberships" class="active">Memberships</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Profile</h1><hr />
+                <p>Welcome, <%= user ? user.name : 'Guest' %>!</p>
+            </header>
+
+            <!-- Switch User Section: Typing Email -->
+            <div class="form-container">
+                <h2>Search User by Email</h2>
+                <form action="/profile/search" method="POST">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter user email" required>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            <% if (user) { %>
+                <!-- Notification Bell -->
+                <div class="notification-bell">
+                    <span class="bell-icon" id="bell-icon">&#x1F514;</span>
+                    <% if (notifications.length > 0) { %>
+                        <span class="unread-notifications"><%= notifications.length %></span>
+                    <% } %>
+                </div>
+
+                <!-- Notifications Dropdown -->
+                <div class="notifications-dropdown" id="notifications-dropdown">
+                    <h3>Notifications</h3>
+                    <ul>
+                        <% notifications.forEach(notification => { %>
+                            <li><%= notification %></li>
+                        <% }); %>
+                    </ul>
+                    <form action="/profile/clear-notifications" method="POST">
+                        <button type="submit">Clear All Notifications</button>
+                    </form>
+                </div>
+                <!-- Profile Information Section -->
+                <div class="profile-info">
+                    <h3>Your Profile Information</h3>
+                    <p>Name: <%= user.name %></p>
+                    <p>Email: <%= user.email %></p>
+                    <p>Profile Picture: <img src="/uploads/<%= user.profilePicture %>" alt="Profile Picture" width="100" /></p>
+                    <p>Genre Interests: <%= user.genreInterests.join(', ') %></p>
+                </div>
+
+                <!-- Update Genre Interests Section -->
+                <div class="form-container">
+                    <h2>Update Genre Interests</h2>
+                    <form action="/profile/update-genre" method="POST">
+                        <label for="genreInterest">Genre Interests:</label>
+                        <input 
+                            type="text" 
+                            id="genreInterest" 
+                            name="genreInterest" 
+                            placeholder="Enter new genre interests (comma-separated)" 
+                            value="<%= user.genreInterests.join(', ') %>" 
+                            required>
+                        <button type="submit">Update Genre Interests</button>
+                    </form>
+                </div>
+
+                <!-- Upload Profile Picture Section -->
+                <div class="form-container">
+                    <h2>Upload Profile Picture</h2>
+                    <form action="/profile/upload" method="POST" enctype="multipart/form-data">
+                        <label for="profilePicture">Upload Profile Picture:</label>
+                        <input type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+                        <button type="submit">Upload</button>
+                    </form>
+                </div>
+            <% } else { %>
+                <p>No user found with that email.</p>
+            <% } %>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const bellIcon = document.getElementById('bell-icon');
+    const dropdown = document.getElementById('notifications-dropdown');
+
+    let isDropdownVisible = false;
+
+    // Show dropdown when bell icon is hovered
+    bellIcon.addEventListener('mouseenter', () => {
+        dropdown.style.display = 'block';
+        isDropdownVisible = true;
+    });
+
+    // Hide dropdown when mouse leaves the bell icon or the dropdown
+    bellIcon.addEventListener('mouseleave', () => {
+        if (!dropdown.matches(':hover')) {
+            setTimeout(() => {
+                if (!dropdown.matches(':hover')) {
+                    dropdown.style.display = 'none';
+                    isDropdownVisible = false;
+                }
+            }, 300); // Optional delay
+        }
+    });
+
+    // Keep the dropdown visible when hovering over it, and hide when explicitly closed
+    dropdown.addEventListener('mouseenter', () => {
+        isDropdownVisible = true;
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+        if (!bellIcon.matches(':hover')) {
+            dropdown.style.display = 'none';
+            isDropdownVisible = false;
+        }
+    });
+
+    // Close dropdown programmatically if needed
+    const closeNotification = () => {
+        dropdown.style.display = 'none';
+        isDropdownVisible = false;
+    };
+});
+
+    </script>
+    
+</body>
+</html>

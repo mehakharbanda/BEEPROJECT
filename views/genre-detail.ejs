@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= genre.name %> Details</title>
+    <link rel="stylesheet" href="/profile.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Library Management</h2>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/genres">Genres</a></li>
+                <li><a href="/borrowals">Borrowals</a></li>
+                <li><a href="/memberships" class="active">Memberships</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="genre-header">
+                <h1><%= genre.name %></h1>
+                <p>Explore the world of <%= genre.name %>. Discover notable books, authors, and much more.</p>
+                <hr>
+            </header>
+            
+            <section>
+                <h2>Top Picks</h2>
+                <div class="book-carousel">
+                    <% genre.books.slice(0, 5).forEach(book => { %>
+                        <div class="book-item">
+                            <h3><%= book.title %></h3>
+                            <p>By <%= book.author %></p>
+                        </div>
+                    <% }); %>
+                </div>
+            </section>
+            
+            <section>
+                <h2>New Additions</h2>
+                <div class="book-carousel">
+                    <% upcomingBooks.forEach(book => { %>
+                        <div class="book-item">
+                            <h3><%= book.title %></h3>
+                            <p>By <%= book.author %></p>
+                            <p>Release Date: <%= book.releaseDate %></p>
+                        </div>
+                    <% }); %>
+                </div>
+            </section>
+
+            <!-- Author Spotlight -->
+            <section>
+                <h2>Author Spotlight</h2>
+                <% featuredAuthors.forEach(author => { %>
+                    <div class="author-spotlight">
+                        <img src="<%= author.picture %>" alt="<%= author.name %>">
+                        <div>
+                            <h3><%= author.name %></h3>
+                            <p><%= author.bio %></p>
+                            <ul>
+                                <% author.notableBooks.forEach(book => { %>
+                                    <li><%= book %></li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    </div>
+                <% }); %>
+            </section>
+            
+
+            <!-- Excerpt Preview -->
+            <section class="excerpt-preview">
+                <h2>Excerpt Preview</h2>
+                <p>"<%= genre.sampleExcerpt || 'The only way to do great work is to love what you do.' %>"</p>
+            </section>
+            
+
+            <!-- Upcoming Events/Books -->
+            <section class="upcoming-releases">
+                <h2>Upcoming Releases</h2>
+                <ul>
+                    <% upcomingBooks.forEach(book => { %>
+                        <li>
+                            <strong><%= book.title %></strong> by <%= book.author %>
+                            <span>(Release Date: <%= book.releaseDate %>)</span>
+                        </li>
+                    <% }); %>
+                </ul>
+            </section>
+            
+        </main>
+    </div>
+</body>
+</html>

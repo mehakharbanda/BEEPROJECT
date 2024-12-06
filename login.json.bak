@@ -1,0 +1,73 @@
+[
+  {
+    "email": "mpk160109@gmail.com",
+    "password": "mehak",
+    "name": "mannatt jhaa",
+    "age": "24",
+    "address": "4232",
+    "dob": "2008-02-12"
+  },
+  {
+    "name": "Mehak Garg",
+    "email": "gargmehak839@gmail.com",
+    "password": "1234",
+    "dob": "2004-03-17",
+    "age": "20",
+    "address": "#291, Mamta Enclave"
+  },
+  {
+    "name": "Heer",
+    "email": "heer@gmail.com",
+    "password": "123456",
+    "dob": "2021-08-17",
+    "age": "20",
+    "address": "Rajpura , Punjab"
+  },
+  {
+    "name": "Kunal",
+    "email": "mehak572.be22@chitkara.edu.in",
+    "password": "kunal",
+    "dob": "2003-01-28",
+    "age": "21",
+    "address": "432"
+  },
+  {
+    "name": "Muskaan",
+    "email": "garg10mehak839@gmail.com",
+    "password": "muskaan",
+    "dob": "2001-11-29",
+    "age": "23",
+    "address": "5357"
+  },
+  {
+    "name": "manavvv",
+    "email": "manav@gmail.com",
+    "password": "manav",
+    "age": "90",
+    "address": "4230"
+  },
+  {
+    "name": "Anjali",
+    "email": "anjali@gmail.com",
+    "password": "anjali",
+    "dob": "2000-11-30",
+    "age": "24",
+    "address": "121"
+  },
+  {
+    "name": "Moksh",
+    "email": "moksh@gmail.com",
+    "password": "moksh00",
+    "dob": "2004-01-21",
+    "age": "20",
+    "address": "1234"
+  },
+  {
+    "name": "Mehak",
+    "email": "mehak575.be22@chitkara.edu.in",
+    "password": "1111",
+    "dob": "2024-11-20",
+    "age": "10",
+    "address": "#123 punjab"
+  }
+]

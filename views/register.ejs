@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<style>
+    body.register-page {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+
+        color: #fff;
+        background-image: url('images/final3.png');
+        background-size: cover;
+    }
+
+    .form-wrapper {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+        /* Increased width */
+    }
+
+    .registration-box {
+        background-color: rgba(0, 0, 0, 0.6);
+        /* Semi-transparent black */
+        color: #fff;
+        padding: 20px 40px;
+        /* Reduced padding for compactness */
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        /* Increased form width */
+        border: solid 1px rgb(245, 245, 245);
+    }
+
+    .registration-box h1 {
+        font-size: 26px;
+        margin-bottom: 15px;
+        font-weight: 700;
+        color: #ccc;
+    }
+
+    .form-field {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .form-field label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .form-field input {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        color: #333;
+        outline: none;
+    }
+
+    .form-field input:focus {
+        border-color: #3f5efb;
+        box-shadow: 0 0 5px rgba(63, 94, 251, 0.5);
+    }
+
+    .error-message {
+        color: #fc466b;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .submit-btn {
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: #2c3e50;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    .submit-btn:hover {
+            background-color: #1d2b36;
+        }
+
+    .redirect-link {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .redirect-link a {
+        color: #a8c3e0;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .redirect-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<body class="register-page">
+    <div class="form-wrapper">
+        <div class="registration-box">
+            <h1>Register</h1>
+            <form action="/register" method="POST">
+                <div class="form-field">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter a secure password" required>
+                </div>
+                <div class="form-field">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-field">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div class="form-field">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+            <p class="redirect-link">
+                Already have an account? <a href="/login">Login here</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

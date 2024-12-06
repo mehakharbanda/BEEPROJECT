@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Fiction",
+    "tags": [
+      "Trending",
+      "Staff Picks"
+    ],
+    "books": [
+      {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald"
+      },
+      {
+        "title": "1984",
+        "author": "George Orwell"
+      },
+      {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee"
+      }
+    ]
+  },
+  {
+    "name": "Non-fiction",
+    "tags": [
+      "Trending",
+      "New Additions"
+    ],
+    "books": [
+      {
+        "title": "Sapiens",
+        "author": "Yuval Noah Harari"
+      },
+      {
+        "title": "Educated",
+        "author": "Tara Westover"
+      },
+      {
+        "title": "The Immortal Life of Henrietta Lacks",
+        "author": "Rebecca Skloot"
+      }
+    ]
+  },
+  {
+    "name": "Science Fiction",
+    "tags": [
+      "Trending",
+      "New Additions"
+    ],
+    "books": [
+      {
+        "title": "Dune",
+        "author": "Frank Herbert"
+      },
+      {
+        "title": "Ender's Game",
+        "author": "Orson Scott Card"
+      },
+      {
+        "title": "The Left Hand of Darkness",
+        "author": "Ursula K. Le Guin"
+      }
+    ]
+  },
+  {
+    "name": "Mehak Kharbandak",
+    "tags": [
+      "nbhg"
+    ],
+    "books": [
+      {
+        "title": ""
+      },
+      {
+        "title": "kjhg"
+      }
+    ]
+  },
+  {
+    "name": "abc",
+    "tags": [
+      "Staff Picks"
+    ],
+    "books": [
+      {
+        "title": "wdaw"
+      }
+    ]
+  }
+]

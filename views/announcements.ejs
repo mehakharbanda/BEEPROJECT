@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Announcements</title>
+    <link rel="stylesheet" href="/ann.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <!-- Using optional chaining to avoid the error if user is undefined -->
+                <img src="<%= user?.profilePicture || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBWbscMzISxfj6as1OfBxGqfF6QJ8XHf_aEQ&s' %>" alt="Profile Picture" class="profile-pic">
+                <h2><%= user?.name || 'Head Librarian' %> (Head Librarian)</h2> <!-- Default value if user is undefined -->
+                <p>On Duty</p>
+            </div>
+            <ul class="menu">
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/books">Books</a></li>
+                <li><a href="/authors">Authors</a></li>
+                <li><a href="/genres">Genres</a></li>
+                <li><a href="/borrowals">Borrowals</a></li>
+                <li><a href="/memberships">Memberships</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h2>Manage Announcements</h2>
+
+            <form action="/create-announcement" method="POST" enctype="multipart/form-data">
+                <div>
+                    <input type="text" name="title" placeholder="Announcement Title" required />
+                </div>
+                <div>
+                    <textarea name="description" placeholder="Announcement Description" required></textarea>
+                </div>
+                <div>
+                    <select name="type" required>
+                        <option value="Notice">Notice</option>
+                        <option value="Event">Event</option>
+                        <option value="General">General</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="file" name="file" />
+                </div>
+                <button type="submit">Create Announcement</button>
+            </form>
+            
+            
+            <!-- Display all announcements -->
+            <h3>All Announcements</h3>
+            <div class="announcement-list">
+                <% if (announcements.length > 0) { %>
+                    <% announcements.forEach(function(announcement) { %>
+                        <div class="announcement-item">
+                            <h4><%= announcement.title %></h4>
+                            <p><%= announcement.description %></p>
+                            <p><strong>Type:</strong> <%= announcement.type %></p>
+                            <% if (announcement.file) { %>
+                                <p><strong>File:</strong> <a href="<%= announcement.file %>" target="_blank">Download</a></p>
+                            <% } %>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No announcements available.</p>
+                <% } %>
+            </div>
+        </main>
+    </div>
+
+    <script src="/public/main.js"></script>
+</body>
+</html>
