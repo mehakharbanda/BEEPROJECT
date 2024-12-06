@@ -18,9 +18,9 @@ const mongoURI = 'mongodb+srv://mpk160109:Mehak%401607@cluster0.io0zg.mongodb.ne
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  ssl: true, // Ensure SSL is enabled
-  sslValidate: true, // If needed
-})
+  ssl: true,  // This can be included if needed
+});
+
 .then(() => {
   console.log("MongoDB connected successfully");
 })
